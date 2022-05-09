@@ -10,10 +10,10 @@ import (
 	"github.com/ybbus/jsonrpc/v2"
 )
 
-//use the rigth web3api endpoint:
+//use the rigth web3api endpoint
 const endpoint = "https://bsc-mainnet.web3api.com"
 
-// other constants:
+// some constants:
 const fromAddress = "0x0000000000000000000000000000000000000000"
 const toAddress = "0x22c32f56f1e98cbdbc97761d471da3d986686378"
 const userClaimable = "0xe22d4f4a000000000000000000000000"
@@ -81,6 +81,10 @@ func main() {
 	for index, oneAddress := range uniqueList {
 		claimable := fetchAmount(userClaimable, oneAddress)
 		investment := fetchAmount(userInvestment, oneAddress)
+		if claimable.String() == "0" && investment.String() == "0" {
+			continue
+		}
+
 		fmt.Printf("%d) %s\nclaimable: %d\ninvestment: %d\n----\n", index, oneAddress, claimable, investment)
 	}
 }
